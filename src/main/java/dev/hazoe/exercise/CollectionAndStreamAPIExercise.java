@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class CollectionAndStreamAPIExercise {
 
-    static void main() {
+    public static void main() {
 
         List<Employee> employees = List.of(
                 new Employee("Alice", "Engineering", 2000),
@@ -16,8 +16,6 @@ public class CollectionAndStreamAPIExercise {
                 new Employee("Dave", "Marketing", 2500),
                 new Employee("Eve", "Engineering", 4000)
         );
-
-        Map<String, List<Employee>> departments = new HashMap<>();
 
         employees
                 .stream()
