@@ -1,6 +1,6 @@
 package dev.hazoe.exercise.design;
 
-public class PaymentProcessor extends BasePayment {
+public class PaymentProcessor {
     private PaymentMethod paymentMethod;
     public PaymentProcessor(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
@@ -11,7 +11,6 @@ public class PaymentProcessor extends BasePayment {
     }
 
     public void pay(double amount) {
-        super.pay(amount);
         paymentMethod.pay(amount);
     }
 

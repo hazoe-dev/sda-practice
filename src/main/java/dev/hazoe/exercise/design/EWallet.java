@@ -1,8 +1,9 @@
 package dev.hazoe.exercise.design;
 
-public class EWallet  implements PaymentMethod{
+public class EWallet  extends BasePayment{
+
     @Override
-    public void pay(double amount) {
+    protected void processPayment(double amount) {
         System.out.println("Paying by e-wallet: " + amount);
     }
 }
