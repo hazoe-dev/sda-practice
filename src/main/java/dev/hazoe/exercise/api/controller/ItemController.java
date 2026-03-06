@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProductController {
+public class ItemController {
 
     private final String URL = "https://jsonmock.hackerrank.com/api/inventory";
     RestTemplate restTemplate = new RestTemplate();
