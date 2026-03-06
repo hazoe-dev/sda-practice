@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: practice
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hazoe
+    username: postgres
+    password:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update

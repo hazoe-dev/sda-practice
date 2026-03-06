@@ -1,5 +1,7 @@
 package dev.hazoe;
 
+import dev.hazoe.dsa.search.dto.SearchResult;
+import dev.hazoe.dsa.search.SearchSortedArray;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
