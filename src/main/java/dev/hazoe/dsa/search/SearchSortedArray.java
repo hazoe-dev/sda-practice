@@ -1,4 +1,6 @@
-package dev.hazoe;
+package dev.hazoe.dsa.search;
+
+import dev.hazoe.dsa.search.dto.SearchResult;
 
 public class SearchSortedArray {
 

@@ -5,5 +5,5 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/hazoe
     username: postgres
-    password:
+    password: 1111
     driver-class-name: org.postgresql.Driver
