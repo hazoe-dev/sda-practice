@@ -13,19 +13,39 @@ public class BookRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
-    record FieldConfig(String column, String operation) {
+    enum Operation {
+        COUNT {
+            @Override
+            Number execute(EntityManager em, String column) {
+                String sql = "SELECT COUNT(" + column + ") FROM book";
+                Query query = em.createNativeQuery(sql);
+                return (Number) query.getSingleResult();
+            }
+        },
+        SUM {
+            @Override
+            Number execute(EntityManager em, String column) {
+                String sql = "SELECT COALESCE(SUM(" + column + "),0) FROM book";
+                Query query = em.createNativeQuery(sql);
+                return (Number) query.getSingleResult();
+            }
+        };
+
+        abstract Number execute(EntityManager em, String column);
     }
 
+    record FieldConfig(String column, Operation operation) {}
+
     private static final Map<String, FieldConfig> ALLOWED_FIELDS = Map.of(
-            "title", new FieldConfig("title", "count"),
-            "author", new FieldConfig("author", "count"),
-            "description", new FieldConfig("description", "count"),
-            "price", new FieldConfig("price", "sum"),
-            "category", new FieldConfig("category", "count"),
-            "downloadNums", new FieldConfig("download_nums", "sum"),
-            "purchaseNums", new FieldConfig("purchase_nums", "sum"),
-            "viewNums", new FieldConfig("view_nums", "sum"),
-            "yearOfPublication", new FieldConfig("year_of_publication", "sum")
+            "title", new FieldConfig("title", Operation.COUNT),
+            "author", new FieldConfig("author", Operation.COUNT),
+            "description", new FieldConfig("description", Operation.COUNT),
+            "price", new FieldConfig("price", Operation.SUM),
+            "category", new FieldConfig("category", Operation.COUNT),
+            "downloadNums", new FieldConfig("download_nums", Operation.SUM),
+            "purchaseNums", new FieldConfig("purchase_nums", Operation.SUM),
+            "viewNums", new FieldConfig("view_nums", Operation.SUM),
+            "yearOfPublication", new FieldConfig("year_of_publication", Operation.SUM)
     );
 
     public long totalByField(String field) {
@@ -35,29 +55,8 @@ public class BookRepositoryCustom {
             throw new IllegalArgumentException("Field " + field + " is not allowed");
         }
 
-        Number result;
-
-        if ("count".equalsIgnoreCase(config.operation())) {
-            result = countByField(config.column());
-        } else if ("sum".equalsIgnoreCase(config.operation())) {
-            result = sumByField(config.column());
-        } else {
-            throw new IllegalStateException("Unsupported operation");
-        }
+        Number result = config.operation().execute(entityManager, config.column());
 
         return result == null ? 0 : result.longValue();
     }
-
-    public Number countByField(String column) {
-        String sql = "SELECT COUNT(" + column + ") FROM book";
-        Query query = entityManager.createNativeQuery(sql);
-        return (Number) query.getSingleResult();
-    }
-
-    public Number sumByField(String column) {
-        String sql = "SELECT COALESCE(SUM(" + column + "),0) FROM book";
-        Query query = entityManager.createNativeQuery(sql);
-        return (Number) query.getSingleResult();
-    }
-
 }
