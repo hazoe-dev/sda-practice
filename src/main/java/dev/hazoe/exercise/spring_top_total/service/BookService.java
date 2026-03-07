@@ -8,5 +8,5 @@ import java.util.List;
 public interface BookService {
     List<Book> getTopByField(int limit, String field);
 
-    List<CountResponse> getTotalBy(String field);
+    CountResponse getTotalBy(String field);
 }
