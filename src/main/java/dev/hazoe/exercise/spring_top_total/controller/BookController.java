@@ -25,7 +25,7 @@ public class BookController {
 
     @GetMapping("/total")
     @ResponseStatus(HttpStatus.OK)
-    public List<CountResponse> getTotalBooksBy(@RequestParam String field) {
+    public CountResponse getTotalBooksBy(@RequestParam String field) {
         return bookService.getTotalBy(field);
     }
 }

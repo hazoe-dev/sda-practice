@@ -49,9 +49,7 @@ class BookControllerTest {
     }
     @Test
     void shouldReturnTotalBooks() {
-        List<CountResponse> result = List.of(
-                new CountResponse("price", 2)
-        );
+        CountResponse result =new CountResponse("price", 2);
 
         when(bookService.getTotalBy("price"))
                 .thenReturn(result);
@@ -61,7 +59,7 @@ class BookControllerTest {
                 .assertThat()
                 .hasStatusOk()
                 .bodyJson()
-                .extractingPath("$[0].count")
+                .extractingPath("$.total")
                 .isEqualTo(2);
     }
 }

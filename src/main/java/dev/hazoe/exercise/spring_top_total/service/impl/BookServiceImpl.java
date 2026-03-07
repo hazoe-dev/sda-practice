@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
             "yearOfPublication"
     );
 
-    private static final Map<String, Sort.Direction> SORT_FIELDS = Map.of(
+    private static final Map<String, Sort.Direction> TOTAL_FIELDS = Map.of(
             "title", Sort.Direction.ASC,
             "author", Sort.Direction.ASC,
             "description", Sort.Direction.ASC,
@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
             throw new IllegalArgumentException("limit must be greater than 0");
         }
 
-        if (!SORT_FIELDS.containsKey(field)) {
+        if (!TOTAL_FIELDS.containsKey(field)) {
             throw new IllegalArgumentException(String.format("field %s not found", field));
         }
 
@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
     }
 
     private Sort.Direction getSortDirection(String field) {
-        Sort.Direction direction = SORT_FIELDS.get(field);
+        Sort.Direction direction = TOTAL_FIELDS.get(field);
         if (direction == null) {
             throw new IllegalArgumentException("Invalid field: " + field);
         }
@@ -73,22 +73,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<CountResponse> getTotalBy(String field) {
-        if (!SORT_FIELDS.containsKey(field)) {
+    public CountResponse getTotalBy(String field) {
+        if (!TOTAL_FIELDS.containsKey(field)) {
             throw new IllegalArgumentException(String.format("field %s not found", field));
         }
 
-        List<Object[]> rows = repositoryCustom.countByField(field);
+        long total = repositoryCustom.totalByField(field);
 
-        if (rows.isEmpty()) {
+        if (total<=0) {
             throw new ResourceNotFoundException(String.format("no books found with field %s", field));
         }
 
-        return rows.stream()
-                .map(r -> new CountResponse(
-                        String.valueOf(r[0]),
-                        ((Number) r[1]).longValue())
-                )
-                .toList();
+        return new CountResponse(field, total);
     }
 }
