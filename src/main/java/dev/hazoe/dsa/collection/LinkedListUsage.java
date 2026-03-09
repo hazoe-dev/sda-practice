@@ -10,6 +10,8 @@ public class LinkedListUsage {
         list.add(1);
         list.add(6);
         list.add(0);
+
+        list.addFirst(5) ;
         list.printValues();
     }
 

@@ -34,6 +34,12 @@ public class CustomLinkedList {
         }
 
     }
+
+    public void addFirst(int data) {
+        CustomNode newNode = new CustomNode(data);
+        newNode.next = head;
+        head = newNode;
+    }
 }
 
 
