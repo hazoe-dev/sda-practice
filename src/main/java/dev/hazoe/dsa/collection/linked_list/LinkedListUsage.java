@@ -1,4 +1,4 @@
-package dev.hazoe.dsa.collection;
+package dev.hazoe.dsa.collection.linked_list;
 
 import java.util.LinkedList;
 

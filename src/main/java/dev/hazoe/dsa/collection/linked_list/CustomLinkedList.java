@@ -1,4 +1,4 @@
-package dev.hazoe.dsa.collection;
+package dev.hazoe.dsa.collection.linked_list;
 
 class CustomNode {
     int data;
