@@ -1,5 +1,6 @@
 package dev.hazoe.practice;
 
+import dev.hazoe.practice.polynomial_multiply.PolynomialMultiplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

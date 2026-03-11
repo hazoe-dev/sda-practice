@@ -1,4 +1,4 @@
-package dev.hazoe.practice;
+package dev.hazoe.practice.polynomial_multiply;
 
 import java.util.Arrays;
 
