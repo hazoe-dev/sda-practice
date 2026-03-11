@@ -26,4 +26,16 @@ public class MyStack {
         }
         System.out.println();
     }
+
+    public int pop() {
+        if (top == -1){
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        return  array[top--];
+    }
+
+    public int peek() {
+        return  array[top];
+    }
 }
