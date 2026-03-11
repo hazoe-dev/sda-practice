@@ -12,6 +12,10 @@ public class PolynomialMultiplication {
     A[1] * B[1] -> result[2]
      */
     public static int[] multiply(int[] a, int[] b) {
+        if (a.length == 0 || b.length == 0) {
+            return new int[0];
+        }
+
         int n = a.length + b.length - 1;
         int[] result = new int[n];
 
